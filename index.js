@@ -42,7 +42,12 @@ app.post("/skill/opening", (req, res) => {
 
 // [2] 위치안내 스킬 (단계별 선택 제공)
 app.post("/skill/location", (req, res) => {
-  const messageText = req.body?.userRequest?.utterance?.toLowerCase() || "";
+  const messageText = (
+    req.body?.userRequest?.utterance ||
+    req.body?.userRequest?.original?.utterance ||
+    req.body?.userRequest?.message?.text ||
+    ""
+  ).toLowerCase();
 
   if (messageText.includes("카카오")) {
     return res.json({
