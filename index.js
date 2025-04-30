@@ -42,10 +42,9 @@ app.post("/skill/opening", (req, res) => {
 
 // [2] 위치안내 스킬 (단계별 선택 제공)
 app.post("/skill/location", (req, res) => {
-  const body = req.body;
-  const userRequest = body?.userRequest?.utterance?.toLowerCase() || "";
+  const messageText = req.body?.userRequest?.utterance?.toLowerCase() || "";
 
-  if (userRequest.includes("카카오맵")) {
+  if (messageText.includes("카카오")) {
     return res.json({
       version: "2.0",
       template: {
@@ -72,8 +71,7 @@ app.post("/skill/location", (req, res) => {
           {
             label: "카카오 T",
             action: "webLink",
-            webLinkUrl:
-              "https://tmapapis.sktelecom.com/production/onsubway?lat=35.8126872&lng=127.129557",
+            webLinkUrl: "https://t.kakao.com/taxi",
           },
         ],
       },
@@ -100,7 +98,7 @@ app.post("/skill/location", (req, res) => {
         {
           label: "카카오(맵, 내비, T)",
           action: "message",
-          messageText: "카카오맵",
+          messageText: "카카오",
         },
         {
           label: "T맵",
