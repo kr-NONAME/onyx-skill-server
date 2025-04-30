@@ -40,7 +40,7 @@ app.post("/skill/opening", (req, res) => {
   res.json(createResponse(msg));
 });
 
-// [2] 위치안내 스킬 (단계별 선택 제공)
+// [2] 위치안내 스킬 (버튼 클릭 기반 조건 분기)
 app.post("/skill/location", (req, res) => {
   const messageText = (
     req.body?.userRequest?.utterance ||
@@ -49,7 +49,7 @@ app.post("/skill/location", (req, res) => {
     ""
   ).toLowerCase();
 
-  if (messageText.includes("카카오")) {
+  if (messageText === "카카오") {
     return res.json({
       version: "2.0",
       template: {
