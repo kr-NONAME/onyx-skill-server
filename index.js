@@ -119,3 +119,5 @@ app.post("/skill/location", (req, res) => {
 app.listen(port, () => {
   console.log(`ONYX Chatbot server running on port ${port}`);
 });
+const priceRoute = require("./routes/price"); // 파일 불러오기
+app.use("/skill/price", priceRoute); // URL 연결
