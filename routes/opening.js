@@ -16,10 +16,10 @@ router.post("/", (req, res) => {
 
   let msg = "";
 
-  if (
-    utter.includes("입장") &&
-    (utter.includes("가능") || utter.includes("여부") || utter.includes("지금"))
-  ) {
+  // 정규표현식으로 입장 가능 여부 발화 인식
+  const checkEnterRegex = /(입장.?가능|입장.?여부|지금.?입장|입장돼|입장 돼)/;
+
+  if (checkEnterRegex.test(utter)) {
     // 입장 가능 여부 전용 응답
     if (isThuOrSun && (time >= 1230 || time < 270)) {
       msg = "지금 입장 가능합니다. 오늘은 04:30까지 운영합니다.";
