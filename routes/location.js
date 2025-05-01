@@ -3,8 +3,10 @@ const express = require("express");
 const router = express.Router();
 
 router.post("/", (req, res) => {
-  const address =
-    "전북특별자치도 전주시 완산구 여울로 19, 2층 (서신동 968-6, 2층)";
+  const roadAddress = "전북특별자치도 전주시 완산구 여울로 19, 2층";
+  const placeName = "오닉스";
+  const latitude = "35.8126872";
+  const longitude = "127.129557";
 
   const messageText = (
     req.body?.userRequest?.utterance ||
@@ -13,7 +15,7 @@ router.post("/", (req, res) => {
     ""
   ).toLowerCase();
 
-  // 카카오 선택시 → basicCard로 플랫폼 선택
+  // 카카오 선택 시 → 카카오맵/내비/T 선택용 basicCard
   if (messageText === "카카오") {
     return res.json({
       version: "2.0",
@@ -21,8 +23,8 @@ router.post("/", (req, res) => {
         outputs: [
           {
             simpleText: {
-              text: "카카오 플랫폼 중 원하시는 서비스를 선택해주세요.",
-            },
+              text: "카카오 플랫폼 중 원하시는 서비스를 선택해주세요."
+            }
           },
           {
             basicCard: {
@@ -31,25 +33,23 @@ router.post("/", (req, res) => {
                 {
                   label: "카카오맵",
                   action: "webLink",
-                  webLinkUrl:
-                    "https://map.kakao.com/link/map/오닉스,35.8126872,127.129557",
+                  webLinkUrl: `kakaomap://search?q=${placeName}`
                 },
                 {
                   label: "카카오내비",
                   action: "webLink",
-                  webLinkUrl:
-                    "https://map.kakao.com/link/navi/오닉스,35.8126872,127.129557",
+                  webLinkUrl: `kakaonavi://navigate?destination=${latitude},${longitude}`
                 },
                 {
                   label: "카카오 T",
                   action: "webLink",
-                  webLinkUrl: "https://t.kakao.com/taxi",
-                },
-              ],
-            },
-          },
-        ],
-      },
+                  webLinkUrl: "https://t.kakao.com/taxi"
+                }
+              ]
+            }
+          }
+        ]
+      }
     });
   }
 
@@ -60,8 +60,8 @@ router.post("/", (req, res) => {
       outputs: [
         {
           simpleText: {
-            text: `오닉스 위치 안내입니다 🗺️\n\n${address}\n\n원하시는 위치 안내 플랫폼을 선택해주세요.`,
-          },
+            text: `오닉스 위치 안내입니다 🗺️\n\n${roadAddress} (${placeName})\n\n아래 버튼을 눌러 원하시는 지도로 바로 연결하실 수 있습니다.`
+          }
         },
         {
           basicCard: {
@@ -70,25 +70,23 @@ router.post("/", (req, res) => {
               {
                 label: "네이버 지도",
                 action: "webLink",
-                webLinkUrl:
-                  "https://map.naver.com/v5/search/오닉스 전북 전주시 완산구 여울로 19",
+                webLinkUrl: `nmap://search?query=${roadAddress} ${placeName}`
               },
               {
                 label: "카카오(맵, 내비, T)",
                 action: "message",
-                messageText: "카카오",
+                messageText: "카카오"
               },
               {
                 label: "T맵",
                 action: "webLink",
-                webLinkUrl:
-                  "tmap://route?goalname=오닉스&goalx=127.129557&goaly=35.8126872",
-              },
-            ],
-          },
-        },
-      ],
-    },
+                webLinkUrl: `tmap://route?goalname=${placeName}&goalx=${longitude}&goaly=${latitude}`
+              }
+            ]
+          }
+        }
+      ]
+    }
   });
 });
 
