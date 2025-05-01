@@ -18,7 +18,7 @@ router.post("/", (req, res) => {
 
   if (
     utter.includes("입장") &&
-    (utter.includes("가능") || utter.includes("여부"))
+    (utter.includes("가능") || utter.includes("여부") || utter.includes("지금"))
   ) {
     // 입장 가능 여부 전용 응답
     if (isThuOrSun && (time >= 1230 || time < 270)) {
