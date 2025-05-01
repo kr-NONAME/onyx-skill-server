@@ -8,6 +8,7 @@ app.use(express.json());
 app.use("/static", express.static("static"));
 
 // 스킬 라우터 연결
+const welcomeRouter = require("./routes/welcome");
 const openingRoute = require("./routes/opening");
 const locationRoute = require("./routes/location");
 const priceRoute = require("./routes/price");
@@ -18,6 +19,7 @@ const snsRoute = require("./routes/sns");
 const eventRoute = require("./routes/event");
 const contactRoute = require("./routes/contact");
 
+app.use("/skill/welcome", welcomeRouter);
 app.use("/skill/opening", openingRoute);
 app.use("/skill/location", locationRoute);
 app.use("/skill/price", priceRoute);
