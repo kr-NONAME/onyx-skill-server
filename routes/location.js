@@ -15,7 +15,7 @@ router.post("/", (req, res) => {
     ""
   ).toLowerCase();
 
-  // 카카오 선택 시 → 카카오맵/내비/T 선택용 basicCard
+  // 카카오 선택 시 → 카카오맵 / 카카오T 선택용 basicCard
   if (messageText === "카카오") {
     return res.json({
       version: "2.0",
@@ -34,11 +34,6 @@ router.post("/", (req, res) => {
                   label: "카카오맵",
                   action: "webLink",
                   webLinkUrl: `kakaomap://search?q=${placeName}`
-                },
-                {
-                  label: "카카오내비",
-                  action: "webLink",
-                  webLinkUrl: `kakaonavi://navigate?destination=${latitude},${longitude}`
                 },
                 {
                   label: "카카오 T",
@@ -73,14 +68,14 @@ router.post("/", (req, res) => {
                 webLinkUrl: `nmap://search?query=${roadAddress} ${placeName}`
               },
               {
-                label: "카카오(맵, 내비, T)",
+                label: "카카오(맵, T)",
                 action: "message",
                 messageText: "카카오"
               },
               {
                 label: "T맵",
                 action: "webLink",
-                webLinkUrl: `tmap://route?goalname=${placeName}&goalx=${longitude}&goaly=${latitude}`
+                webLinkUrl: `tmap://search?name=${roadAddress} ${placeName}`
               }
             ]
           }
