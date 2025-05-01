@@ -3,21 +3,22 @@ const express = require("express");
 const router = express.Router();
 
 router.post("/", (req, res) => {
-  const responseText = `오닉스 공식 SNS 📲\n\n최신 소식과 이벤트를 SNS에서 확인해보세요!`;
-
   res.json({
     version: "2.0",
     template: {
       outputs: [
         {
-          simpleText: { text: responseText },
-        },
-      ],
-      quickReplies: [
-        {
-          label: "Instagram",
-          action: "webLink",
-          webLinkUrl: "https://www.instagram.com/clubonyx_official/",
+          basicCard: {
+            title: "오닉스 공식 SNS",
+            description: "오닉스의 최신 소식과 이벤트를 확인해보세요.",
+            buttons: [
+              {
+                label: "Instagram",
+                action: "webLink",
+                webLinkUrl: "https://www.instagram.com/clubonyx_official/",
+              },
+            ],
+          },
         },
       ],
     },
