@@ -3,6 +3,9 @@ const express = require("express");
 const router = express.Router();
 
 router.post("/", (req, res) => {
+  const address =
+    "전북특별자치도 전주시 완산구 여울로 19, 2층 (서신동 968-6, 2층)";
+
   const messageText = (
     req.body?.userRequest?.utterance ||
     req.body?.userRequest?.original?.utterance ||
@@ -50,7 +53,7 @@ router.post("/", (req, res) => {
       outputs: [
         {
           simpleText: {
-            text: "원하시는 위치 안내 플랫폼을 선택해주세요.",
+            text: `오닉스 위치 안내입니다 🗺️\n\n${address}\n\n원하시는 위치 안내 플랫폼을 선택해주세요.`,
           },
         },
       ],
