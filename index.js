@@ -18,6 +18,7 @@ const placeRoute = require("./routes/place");
 const snsRoute = require("./routes/sns");
 const eventRoute = require("./routes/event");
 const contactRoute = require("./routes/contact");
+const fallbackRoute = require("./routes/fallback");
 
 app.use("/skill/welcome", welcomeRouter);
 app.use("/skill/opening", openingRoute);
@@ -29,6 +30,7 @@ app.use("/skill/place", placeRoute);
 app.use("/skill/sns", snsRoute);
 app.use("/skill/event", eventRoute);
 app.use("/skill/contact", contactRoute);
+app.use("/skill/fallback", fallbackRoute);
 
 app.listen(port, () => {
   console.log(`ONYX Chatbot server running on port ${port}`);
