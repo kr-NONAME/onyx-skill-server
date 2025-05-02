@@ -15,17 +15,24 @@ router.post("/", (req, res) => {
     template: {
       outputs: [
         {
-          simpleText: { text: responseText },
+          simpleText: {
+            text: responseText
+          }
         },
-      ],
-      quickReplies: [
         {
-          label: "직원과 1:1 채팅하기",
-          action: "webLink",
-          webLinkUrl: "https://open.kakao.com/o/s8asFRth",
-        },
-      ],
-    },
+          basicCard: {
+            title: "직원과 1:1 채팅하기",
+            buttons: [
+              {
+                label: "오픈채팅 바로가기",
+                action: "webLink",
+                webLinkUrl: "https://open.kakao.com/o/s8asFRth"
+              }
+            ]
+          }
+        }
+      ]
+    }
   });
 });
 
