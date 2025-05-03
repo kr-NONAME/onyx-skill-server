@@ -1,4 +1,3 @@
-// routes/reserve.js
 const express = require("express");
 const router = express.Router();
 
@@ -21,6 +20,10 @@ router.post("/", (req, res) => {
         },
         {
           basicCard: {
+            thumbnail: {
+              imageUrl: "https://onyx-skill-server.onrender.com/static/reserve.png",
+              altText: "오닉스 예약 안내"
+            },
             title: "직원과 1:1 채팅하기",
             buttons: [
               {
