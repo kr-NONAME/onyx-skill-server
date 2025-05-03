@@ -1,4 +1,3 @@
-// routes/location.js
 const express = require("express");
 const router = express.Router();
 
@@ -17,6 +16,10 @@ router.post("/", (req, res) => {
         },
         {
           basicCard: {
+            thumbnail: {
+              imageUrl: "https://onyx-skill-server.onrender.com/static/location.png",
+              altText: "오닉스 위치 안내"
+            },
             title: "위치 안내 바로가기",
             buttons: [
               {
