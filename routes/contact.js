@@ -1,4 +1,3 @@
-// routes/contact.js
 const express = require("express");
 const router = express.Router();
 
@@ -9,6 +8,10 @@ router.post("/", (req, res) => {
       outputs: [
         {
           basicCard: {
+            thumbnail: {
+              imageUrl: "https://onyx-skill-server.onrender.com/static/contact.png",
+              altText: "오닉스 전화 문의"
+            },
             title: "오닉스 전화 문의",
             description:
               "0507-1397-9717\n\n스마트 ARS로 연결됩니다. 통화 연결이 어려울 경우 카카오채널로 문의해 주세요.",
