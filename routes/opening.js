@@ -8,7 +8,7 @@ const timezone = require("dayjs/plugin/timezone");
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-const SERVICE_KEY = "xpn/UE3fz/7s71++gPMNYCh54FUOD1hnHkWCjR/qbfxgZ/fUm+S9bHH/vMUD38PlFx0O5Sf4EZNKWTTanX/FRw==";
+const SERVICE_KEY = process.env.PUBLIC_DATA_SERVICE_KEY;
 
 // 영업일 안내 고정 텍스트
 const openingGuide = `📌 [영업일 안내]
@@ -21,6 +21,11 @@ const openingGuide = `📌 [영업일 안내]
 ※ 영업일 및 영업시간은 내부 사정에 따라 변경될 수 있습니다.`;
 
 async function getHolidayList(year) {
+  if (!SERVICE_KEY) {
+    console.warn("PUBLIC_DATA_SERVICE_KEY is not configured; holiday lookup skipped.");
+    return [];
+  }
+
   const url = `http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo`;
   const params = {
     ServiceKey: SERVICE_KEY,
@@ -34,7 +39,7 @@ async function getHolidayList(year) {
     const items = response.data.response.body.items.item;
     return items.map(item => dayjs(item.locdate.toString(), "YYYYMMDD").format("YYYY-MM-DD"));
   } catch (error) {
-    console.error("공휴일 불러오기 실패", error);
+    console.error("공휴일 불러오기 실패", error.response && error.response.status);
     return [];
   }
 }
